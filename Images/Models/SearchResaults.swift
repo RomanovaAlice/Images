@@ -8,11 +8,16 @@
 import Foundation
 
 
-struct SearchResaults: Decodable {
-    
+struct SearchResults: Decodable {
+    let total: Int
+    let results: [PictureParametets]
+}
+
+struct PictureParametets: Decodable {
     let width: Int
     let height: Int
     let urls: [URLType.RawValue:String]
+    
     
     enum URLType: String {
         case raw
