@@ -10,4 +10,7 @@ import Foundation
 
 protocol ViewProtocol {
     
+    func selectURL(url: PictureParametets)
+    
+    func displayData(data: [PictureParametets])
 }

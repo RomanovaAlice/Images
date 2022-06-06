@@ -12,7 +12,7 @@ import Foundation
 class NetworkDataFetcher {
     
     
-    var networkService = NetworkService()
+    private var networkService = NetworkService()
     
     
     func fetchImages(request: String, completion: @escaping (SearchResults?) -> Void) {
@@ -29,7 +29,7 @@ class NetworkDataFetcher {
     }
     
     
-    func decodeJSON<T: Decodable>(type: T.Type, data: Data?) -> T? {
+    private func decodeJSON<T: Decodable>(type: T.Type, data: Data?) -> T? {
         let decoder = JSONDecoder()
         
         guard let data = data else { return nil }

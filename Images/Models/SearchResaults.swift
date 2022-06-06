@@ -14,8 +14,7 @@ struct SearchResults: Decodable {
 }
 
 struct PictureParametets: Decodable {
-    let width: Int
-    let height: Int
+    
     let urls: [URLType.RawValue:String]
     
     
