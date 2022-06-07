@@ -29,7 +29,6 @@
         <!--Favorites-->
         <scene sceneID="D9Q-EK-vhK">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7SH-7M-dK3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="YVt-rK-j0X" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Favorites" image="heart" catalog="system" id="fFR-ts-9qc"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uxl-cf-xOI">
@@ -40,13 +39,14 @@
                         <segue destination="lqs-oO-8sd" kind="relationship" relationship="rootViewController" id="Kxi-ha-cho"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7SH-7M-dK3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="245" y="122"/>
         </scene>
-        <!--View Controller-->
+        <!--Favorites-->
         <scene sceneID="R9F-T8-iWh">
             <objects>
-                <viewController id="lqs-oO-8sd" sceneMemberID="viewController">
+                <viewController id="lqs-oO-8sd" customClass="Favorites" customModule="Images" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kLT-2S-vZa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,10 +76,10 @@
             </objects>
             <point key="canvasLocation" x="245" y="-684"/>
         </scene>
-        <!--View Controller-->
+        <!--Images-->
         <scene sceneID="60R-kn-nTD">
             <objects>
-                <viewController id="lup-F3-hF3" sceneMemberID="viewController">
+                <viewController id="lup-F3-hF3" customClass="Images" customModule="Images" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1IY-Aw-dko">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

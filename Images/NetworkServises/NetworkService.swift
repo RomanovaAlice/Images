@@ -57,7 +57,6 @@ class NetworkService {
             completion(data, error)
         }
     }
-    
 }
 
 
