@@ -47,7 +47,7 @@ class ImagesCell: UICollectionViewCell {
     
     //MARK: Methods
     
-    private func setupImageView() {
+    private func setupConstraintsForImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
