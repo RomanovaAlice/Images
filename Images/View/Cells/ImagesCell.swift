@@ -17,7 +17,6 @@ class ImagesCell: UICollectionViewCell {
     //MARK: Computed Properties
     
     let imageView: UIImageView = {
-        
        let imageView = UIImageView()
         imageView.backgroundColor = .gray
        imageView.contentMode = .scaleAspectFill
@@ -38,6 +37,8 @@ class ImagesCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setupConstraintsForImageView()
     }
     
     required init?(coder: NSCoder) {
@@ -49,6 +50,8 @@ class ImagesCell: UICollectionViewCell {
     
     private func setupConstraintsForImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(imageView)
         
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true

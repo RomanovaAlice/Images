@@ -29,9 +29,6 @@ class Images: UIViewController {
         setupConstraintsForCollectionView()
         
         setupSearchBar()
-        
-            
-        view.backgroundColor = .red
     }
     
     
@@ -43,6 +40,7 @@ class Images: UIViewController {
         collectionView.dataSource = self
 
         collectionView.register(ImagesCell.self, forCellWithReuseIdentifier: ImagesCell.identifier)
+     
         
         collectionView.frame = view.bounds
         collectionView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)

@@ -46,7 +46,7 @@ class NetworkService {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.unsplash.com"
-        components.path = ""
+        components.path = "/search/photos"
         components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         
         return components.url!
@@ -54,7 +54,9 @@ class NetworkService {
     
     private func createDataTask(request: URLRequest, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
         return URLSession.shared.dataTask(with: request) { data, response, error in
-            completion(data, error)
+            DispatchQueue.main.async {
+                completion(data, error)
+            }
         }
     }
 }
