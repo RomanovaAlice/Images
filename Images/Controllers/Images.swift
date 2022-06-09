@@ -7,23 +7,25 @@
 
 import UIKit
 
-class Images: UIViewController {
-    
-    //MARK: @IBOutlets
-    
-    @IBOutlet weak var collectionView: UICollectionView!
+final class Images: UIViewController {
     
     //MARK: Variable
     
     private let networkDataFetcher = NetworkDataFetcher()
-    private var images = [PictureParametets]()
     private let itemsPerRow: CGFloat = 2
     private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    
+    private var collectionView: UICollectionView?
+    private var images = [PictureParametets]()
 
     
     //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .systemBackground
+        
+        tabBarItem.image = .add
         
         setupCollectionView()
         setupConstraintsForCollectionView()
@@ -36,26 +38,28 @@ class Images: UIViewController {
     
     private func setupCollectionView() {
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-
-        collectionView.register(ImagesCell.self, forCellWithReuseIdentifier: ImagesCell.identifier)
-     
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        collectionView.frame = view.bounds
-        collectionView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        collectionView.contentInsetAdjustmentBehavior = .automatic
-        collectionView.allowsMultipleSelection = true
-
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView?.register(ImagesCell.self, forCellWithReuseIdentifier: ImagesCell.identifier)
+        collectionView?.frame = view.bounds
+        collectionView?.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView?.contentInsetAdjustmentBehavior = .automatic
+        collectionView?.allowsMultipleSelection = true
+        
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        
+        view.addSubview(collectionView ?? UICollectionView())
     }
     
     private func setupConstraintsForCollectionView() {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
         
-        collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
+        collectionView?.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        collectionView?.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
     }
  
     
@@ -85,7 +89,7 @@ extension Images: UISearchBarDelegate {
         self.networkDataFetcher.fetchImages(request: searchText) { [weak self] (searchResults) in
                 guard let fetchedPhotos = searchResults else { return }
                 self?.images = fetchedPhotos.results
-                self?.collectionView.reloadData()
+                self?.collectionView?.reloadData()
             }
     }
 }

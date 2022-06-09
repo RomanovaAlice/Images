@@ -17,6 +17,7 @@
 		D2943E292825AC88005BC37C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2943E272825AC88005BC37C /* Main.storyboard */; };
 		D2943E2B2825AC8A005BC37C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2943E2A2825AC8A005BC37C /* Assets.xcassets */; };
 		D2943E2E2825AC8A005BC37C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2943E2C2825AC8A005BC37C /* LaunchScreen.storyboard */; };
+		D2A0AEF52852499E003E4C2C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0AEF42852499E003E4C2C /* TabBarController.swift */; };
 		D2D8B101283807D60059EA7F /* SearchResaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D8B100283807D60059EA7F /* SearchResaults.swift */; };
 		D2D8B1032838080D0059EA7F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D8B1022838080D0059EA7F /* NetworkService.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		D2943E2A2825AC8A005BC37C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2943E2D2825AC8A005BC37C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2943E2F2825AC8A005BC37C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2A0AEF42852499E003E4C2C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		D2D8B100283807D60059EA7F /* SearchResaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResaults.swift; sourceTree = "<group>"; };
 		D2D8B1022838080D0059EA7F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,14 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		D2A0AEF32852495B003E4C2C /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				D2A0AEF42852499E003E4C2C /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		D2CDC01B284DC04F001A5A5E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 		D2CDC01C284DC063001A5A5E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D2A0AEF32852495B003E4C2C /* TabBar */,
 				D2CDC01D284DC0A0001A5A5E /* Cells */,
 				D2D8B0FE283807630059EA7F /* Storyboards */,
 			);
@@ -272,6 +283,7 @@
 				D27558C3284AA14E007058D4 /* NetworkDataFetcher.swift in Sources */,
 				D27558C9284D8B0E007058D4 /* Images.swift in Sources */,
 				D27558C5284D8A82007058D4 /* ImagesCell.swift in Sources */,
+				D2A0AEF52852499E003E4C2C /* TabBarController.swift in Sources */,
 				D2D8B101283807D60059EA7F /* SearchResaults.swift in Sources */,
 				D2943E222825AC88005BC37C /* AppDelegate.swift in Sources */,
 				D2943E242825AC88005BC37C /* SceneDelegate.swift in Sources */,
