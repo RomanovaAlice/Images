@@ -7,10 +7,7 @@
 
 import Foundation
 
-// Реализация построения запроса URL
-
 class NetworkService {
-    
     
     func getRequest(request: String, completion: @escaping (Data?, Error?) -> Void) {
         

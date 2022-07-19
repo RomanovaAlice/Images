@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Favorites: UIViewController {
+final class Favorites: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

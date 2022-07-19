@@ -9,23 +9,20 @@ import UIKit
 
 final class Images: UIViewController {
     
-    //MARK: Variable
+    //MARK: - Private properties
     
     private let networkDataFetcher = NetworkDataFetcher()
     private let itemsPerRow: CGFloat = 2
     private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-    
     private var collectionView: UICollectionView?
     private var images = [PictureParametets]()
+    private var selectedImages = [UIImage]()
 
-    
-    //MARK: ViewDidLoad
+    //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        
-        tabBarItem.image = .add
         
         setupCollectionView()
         setupConstraintsForCollectionView()
@@ -33,8 +30,7 @@ final class Images: UIViewController {
         setupSearchBar()
     }
     
-    
-     //MARK: setupCollectoinView
+     //MARK: - setupCollectoinView
     
     private func setupCollectionView() {
         
@@ -62,8 +58,7 @@ final class Images: UIViewController {
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
     }
  
-    
-    //MARK: setupSearchBar
+    //MARK: - setupSearchBar
     
     private func setupSearchBar() {
         let seacrhController = UISearchController(searchResultsController: nil)
@@ -80,11 +75,10 @@ final class Images: UIViewController {
 
 
 
-// MARK: UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 
 extension Images: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
         
         self.networkDataFetcher.fetchImages(request: searchText) { [weak self] (searchResults) in
                 guard let fetchedPhotos = searchResults else { return }
@@ -94,8 +88,7 @@ extension Images: UISearchBarDelegate {
     }
 }
 
-
-//MARK: UICollectionViewDataSource, UICollectionViewDelegate
+//MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
 extension Images: UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -112,8 +105,14 @@ extension Images: UICollectionViewDataSource, UICollectionViewDelegate {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        undateNavButtonsState()
+        let cell = collectionView.cellForItem(at: indexPath) as! ImagesCell
+        guard let image = cell.imageView.image else { return }
+        selectedImages.append(image)
+    }
 }
-
 
 //MARK: - UICollectionViewDelegateFlowLayout
 

@@ -7,13 +7,9 @@
 
 import Foundation
 
-// Реализация парсинга приходящих данных
-
 class NetworkDataFetcher {
     
-    
     private var networkService = NetworkService()
-    
     
     func fetchImages(request: String, completion: @escaping (SearchResults?) -> Void) {
         

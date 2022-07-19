@@ -92,12 +92,12 @@
 		D2943E202825AC88005BC37C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D2943E212825AC88005BC37C /* AppDelegate.swift */,
+				D2943E232825AC88005BC37C /* SceneDelegate.swift */,
 				D2D8B0F8283806EB0059EA7F /* Models */,
 				D2D8B0FB283807100059EA7F /* NetworkServises */,
 				D2CDC01B284DC04F001A5A5E /* Controllers */,
 				D2CDC01C284DC063001A5A5E /* View */,
-				D2943E212825AC88005BC37C /* AppDelegate.swift */,
-				D2943E232825AC88005BC37C /* SceneDelegate.swift */,
 				D2943E2A2825AC8A005BC37C /* Assets.xcassets */,
 				D2943E2F2825AC8A005BC37C /* Info.plist */,
 			);
