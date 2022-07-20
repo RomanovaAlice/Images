@@ -9,14 +9,20 @@ import UIKit
 
 final class Images: UIViewController {
     
-    //MARK: - Private properties
+    //MARK: - Arrays
+    var selectedImages = [UIImage]()
+    private var images = [PictureParametets]()
     
+    //MARK: - Private properties
     private let networkDataFetcher = NetworkDataFetcher()
     private let itemsPerRow: CGFloat = 2
     private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-    private var collectionView: UICollectionView?
-    private var images = [PictureParametets]()
-    private var selectedImages = [UIImage]()
+    private var imagesCollectionView: UICollectionView?
+    
+    //MARK: - Computed properties
+    private lazy var addBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+    }()
 
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -26,36 +32,34 @@ final class Images: UIViewController {
         
         setupCollectionView()
         setupConstraintsForCollectionView()
-        
         setupSearchBar()
+        setupNavigationBar()
     }
     
      //MARK: - setupCollectoinView
     
     private func setupCollectionView() {
-        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView?.register(ImagesCell.self, forCellWithReuseIdentifier: ImagesCell.identifier)
-        collectionView?.frame = view.bounds
-        collectionView?.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        collectionView?.contentInsetAdjustmentBehavior = .automatic
-        collectionView?.allowsMultipleSelection = true
+        imagesCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        imagesCollectionView?.register(ImagesCell.self, forCellWithReuseIdentifier: ImagesCell.identifier)
+        imagesCollectionView?.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        imagesCollectionView?.contentInsetAdjustmentBehavior = .automatic
+        imagesCollectionView?.allowsMultipleSelection = true
         
-        collectionView?.delegate = self
-        collectionView?.dataSource = self
-        
-        view.addSubview(collectionView ?? UICollectionView())
+        imagesCollectionView?.delegate = self
+        imagesCollectionView?.dataSource = self
     }
     
     private func setupConstraintsForCollectionView() {
-        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        imagesCollectionView?.translatesAutoresizingMaskIntoConstraints = false
         
-        collectionView?.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        collectionView?.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
+        view.addSubview(imagesCollectionView ?? UICollectionView())
+        
+        imagesCollectionView?.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        imagesCollectionView?.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        imagesCollectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        imagesCollectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
     }
  
     //MARK: - setupSearchBar
@@ -68,6 +72,30 @@ final class Images: UIViewController {
         seacrhController.obscuresBackgroundDuringPresentation = false
         
         seacrhController.searchBar.delegate = self
+    }
+    
+    //MARK: - setupNavigationBar
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = addBarButtonItem
+//        addBarButtonItem.isEnabled = false
+    }
+    
+    //MARK: - @objc method "add"
+    
+    @objc private func add() {
+        let alert = UIAlertController(title: "Внимание!",
+                                      message: "\(selectedImages.count) изображнеия будут добавлены в раздел понравившиеся",
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { _ in
+            
+            let favorites = Favorites()
+            favorites.favoritesImages.append(contentsOf: self.selectedImages)
+            favorites.favoritesCollectionView?.reloadData()
+        }))
+        present(alert, animated: true)
     }
 }
 
@@ -83,7 +111,7 @@ extension Images: UISearchBarDelegate {
         self.networkDataFetcher.fetchImages(request: searchText) { [weak self] (searchResults) in
                 guard let fetchedPhotos = searchResults else { return }
                 self?.images = fetchedPhotos.results
-                self?.collectionView?.reloadData()
+                self?.imagesCollectionView?.reloadData()
             }
     }
 }
