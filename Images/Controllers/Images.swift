@@ -10,18 +10,22 @@ import UIKit
 final class Images: UIViewController {
     
     //MARK: - Arrays
-    var selectedImages = [UIImage]()
+    private var selectedImages = [UIImage]()
     private var images = [PictureParametets]()
     
     //MARK: - Private properties
     private let networkDataFetcher = NetworkDataFetcher()
-    private let itemsPerRow: CGFloat = 2
-    private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     private var imagesCollectionView: UICollectionView?
+    private let sectionInserts = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    private let itemsPerRow: CGFloat = 2
     
     //MARK: - Computed properties
     private lazy var addBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add))
+    }()
+    
+    private lazy var numberOfSelectedPhotos: Int = {
+        return imagesCollectionView?.indexPathsForSelectedItems?.count ?? 0
     }()
 
     //MARK: - ViewDidLoad
@@ -78,22 +82,39 @@ final class Images: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItem = addBarButtonItem
-//        addBarButtonItem.isEnabled = false
+        addBarButtonItem.isEnabled = false
     }
     
+    private func refresh() {
+        selectedImages.removeAll()
+        addBarButtonItem.isEnabled = numberOfSelectedPhotos > 0
+    }
+
     //MARK: - @objc method "add"
     
     @objc private func add() {
+        
+        let selectedPictures = imagesCollectionView?.indexPathsForSelectedItems?.reduce([], { (photos, indexPath) -> [PictureParametets] in
+            var pictures = photos
+            let image = self.images[indexPath.item]
+            pictures.append(image)
+            return pictures
+        })
         let alert = UIAlertController(title: "Внимание!",
-                                      message: "\(selectedImages.count) изображнеия будут добавлены в раздел понравившиеся",
+                                      message: "\(selectedPictures!.count) изображнеия будут добавлены в раздел понравившиеся",
                                       preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { [weak self] _ in
             
-            let favorites = Favorites()
-            favorites.favoritesImages.append(contentsOf: self.selectedImages)
-            favorites.favoritesCollectionView?.reloadData()
+            let tabBar = self?.tabBarController as! TabBarController
+            let navigationViewController = tabBar.viewControllers?[1] as! UINavigationController
+            let favoritesViewController = navigationViewController.topViewController as! Favorites
+            
+            favoritesViewController.favoritesImages.append(contentsOf: selectedPictures ?? [])
+            favoritesViewController.favoritesCollectionView?.reloadData()
+            
+            self?.refresh()
         }))
         present(alert, animated: true)
     }
@@ -135,7 +156,7 @@ extension Images: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        undateNavButtonsState()
+        addBarButtonItem.isEnabled = numberOfSelectedPhotos > 0
         let cell = collectionView.cellForItem(at: indexPath) as! ImagesCell
         guard let image = cell.imageView.image else { return }
         selectedImages.append(image)
